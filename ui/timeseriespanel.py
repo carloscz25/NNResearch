@@ -1,10 +1,10 @@
 from PySide6.QtCharts import QChart, QSplineSeries, QValueAxis, QChartView
 from PySide6.QtCore import Qt, QTimer, Slot
-from PySide6.QtGui import QPen
+from PySide6.QtGui import QPen, QIcon
 import random
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QFrame, QVBoxLayout
+from PySide6.QtWidgets import QApplication, QMainWindow, QFrame, QVBoxLayout, QHBoxLayout, QPushButton
 
 
 class Chart(QChart):
@@ -108,10 +108,34 @@ class MainWindow(QMainWindow):
         self.resize(500, 500)
         self.setCentralWidget(self.bg)
         self.bg.layout = QVBoxLayout(self.bg)
+        self.bg.layout.setSpacing(0)
+        frame = self.gettopframe()
 
+        self.bg.layout.addWidget(frame)
         chartview = QChartView(Chart(valueholder=valueholder))
         self.bg.layout.addWidget(chartview)
         self.update()
+
+    def gettopframe(self):
+        frame = QFrame()
+        frame.layout = QHBoxLayout(frame)
+
+        icon = QIcon("check.png")
+        pushbutton = QPushButton(icon=icon)
+
+        frame.layout.addWidget(pushbutton)
+        return frame
+
+from ui.valueholder import ValueHolder
+vh = ValueHolder()
+vh.epoch = 0
+vh.value = 0.4
+app = QApplication()
+mw = MainWindow(vh)
+mw.show()
+app.exec()
+
+
 
 
 

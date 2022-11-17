@@ -1,6 +1,7 @@
 from nn.basics import Link, Neuron, Net
 import numpy as np
 import pickle
+import codecs
 
 
 class StoredNetInfo():
@@ -11,9 +12,18 @@ class StoredNetInfo():
         self.weights = {}
         self.gradients = {}
         self.epochs = {}
-        f = open(self.path, 'a')
-        f.write(str(pickle.dumps(self.net, 0)) + "\n")
+        f = open(self.path, 'w')
+        pickled = self.encodeObjectToLineForStorage(self.net)
+        f.write(pickled)
         f.close()
+
+    def encodeObjectToLineForStorage(self, obj):
+        pickled = codecs.encode(pickle.dumps(obj), "base64").decode().replace("\n", "")+"\n"
+        return pickled
+
+    def decodeLineToObject(self, line):
+        obj = pickle.loads(codecs.decode(line.encode(), "base64"))
+        return obj
 
     def copyEpochInfo(self, epoch):
         weights = {}
@@ -36,7 +46,8 @@ class StoredNetInfo():
     def appendEpochInfo(self, epoch : int = None, weights : dict = None, gradients : dict = None, error : float = None):
         f = open(self.path, 'a')
         ii = IterationInfo(epoch, weights, gradients, error)
-        f.write(str(pickle.dumps(ii,0)) + "\n")
+        iistr = self.encodeObjectToLineForStorage(ii)
+        f.write(iistr)
         f.close()
 
 
