@@ -55,13 +55,13 @@ def nncode(errorholder):
         sni.appendEpochInfo(epoch, weights, grads, error)
         opt.adjustweights()
 
-        # grads = gradients(net)
-        # grads2 = []
-        # for j in range(5):
-        #     g = grads[j]
-        #     grads2.append(np.average(g))
-        # errorholder.value = grads2
-        # errorholder.value.append(np.average(erroravg))
+        grads = gradients(net)
+        grads2 = []
+        for j in range(5):
+            g = grads[j]
+            grads2.append(np.average(g))
+        errorholder.value = grads2
+        errorholder.value.append(np.average(erroravg))
 
         net.resetgradients()
         print("===========================EPOCH NUM. " + str(i) + "===========================")
