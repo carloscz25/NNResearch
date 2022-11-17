@@ -1,0 +1,24 @@
+NOTAS DE ALGORITMO DE SELECCION DE FORMACION DE RED NEURONAL
+============================================================
+
+Definicion de un algoritmo en el qeu las neuronas surgen con una unica funcion de activación sigmoide y sin conexiones.
+Las conexiones se irán adquiriendo en funcion de la afinidad que cada neurona "sienta" con el resto de neuronas.
+Las conexiones pueden adquirirse y descartarse, de manera que la red se adapte dinámicamente.
+Una neurona podrá tener 1-N conexiones entrantes y 1-N conexiones salientes, pero en el caso uqe se quede sin
+conexiones salientes, perdera eficacia y deberá ser eliminada de la red.
+Por tanto todas las neuronas son creadas con al menos un link saliente y deberán anexionarse a una neurona sólo
+ser añadidas a la red. A que neurona se añade será aleatorio.
+Una conexion no se puede quedar colgada, ha de tener origen y fin.
+Una neurona podra conectarse a otras neuronas generando links entrantes para si y links salientes para las otras
+neuronas, contribuyendo así a su eficacia.
+Cada neurona podrá conectarse a mas neuronas en funcion de su eficiacia
+La eficacia se medira por el numero de conexiones salientes, partiendo inicialmente todas las neuronas de una
+conexion saliente y ninguna entrante.
+Las neuronas cooperaran entre sí y se conectaran entre sí valorando la "afinidad" entre 2 neuronas.
+
+La afinidad se medira primeramente por el análisis histórico y comparacion de las activaciones entre 2 neuronas, es decir
+la diferencia de resultados entre 2 neuronas. CONCRETAR!!!!
+
+Una neurona descartará la conexión con otra cuando perciba que ha perdido afinidad con dicha neurona
+
+
